@@ -2,6 +2,8 @@ const logContainer = document.getElementById('container-log');
 const inventoryContainer = document.getElementById('container-inventory');
 const buttonContainer = document.getElementById('container-buttons');
 
+let TestItem1 = { name: "Jumpsuit", quantity: 1, pickuptext: "The jumpsuit is mundane, but comfortable."};
+let TestItem2 = { name: "10mm Pistol", quantity: 1, pickuptext: "The pistol is cool to the touch, and suprisingly heavy."}
 let inventory = [];
 let intro = { 
 	stage: 0,
@@ -15,7 +17,8 @@ let intro = {
 		{text:`You definitely just died, and you've definitely never been in this room before.
 
 Rows of pods stacked up to the roof span the length of the room, connected with pipes that trace the walls; presumably connected to the life support.`, action:"Search the Room" },
-	],
+		{text: "You find a jumpsuit and a pistol", action: "?", item: [TestItem1, TestItem2] }
+],
 };
 
 function onLoad() {
@@ -38,7 +41,8 @@ function printIntro(){
 
 	logMessage(intro.story[intro.stage].text);
 	if( intro.story[ intro.stage ].item )
-		addItem(intro.story[ intro.stage ].item );
+		for( let index = 0; index < intro.story[intro.stage].item.length; index++ )
+			addItem( intro.story[ intro.stage ].item[ index] );
 	intro.stage++;
 }
 
@@ -50,7 +54,7 @@ function updateInventoryWindow( invObj ) {
 	for( index = 0; index < window.length; index++ ){
 		if( window[ index ].innerHTML.includes( invObj.name )){
 			window[ index ].innerHTML = invObj.name + '\n' + invObj.quantity;
-			no_window = false;
+				no_window = false;
 		}
 	}
 
