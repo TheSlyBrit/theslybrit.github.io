@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-UK">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Clicker Project</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="onLoad()">
+	<div class="container-grid">
+		<div id="container-gameplay">
+			<div id="container-buttons" class="content-gameplay">Actions:</div>
+			<div id="container-temp" class="content-gameplay"></div>
+			<div id="container-inventory" class="content-gameplay""></div>
+		</div>
+		<div id="container-gameinfo">
+			<div id="container-links-gameinfo">
+				<button class="link-gameinfo" onclick="openLogTab(event, 'gameinfotab-log')" id="tab-default">Log</button>
+				<button class="link-gameinfo" onclick="openLogTab(event, 'gameinfotab-placeholder')">empty</button>
+			</div>
+			<div id="container-tabs-gameinfo">
+				<div id="gameinfotab-log" class="content-gameinfo">
+					<div id="container-log"></div>
+				</div>
+				<div id="gameinfotab-placeholder" class="content-gameinfo">
+					<div id="placeholder"></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<script src="gamelogic.js"></script>
+</body>
+</html>

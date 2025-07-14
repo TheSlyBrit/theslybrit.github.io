@@ -1,0 +1,92 @@
+body{
+	background-color:#444
+}
+
+.container-grid{
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+#container-log{
+	height: 562px;
+	overflow-y: auto;
+	background-color: #888;
+}
+
+.log-entry{
+	padding: 3px;
+	background-color: #444;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	color: #F4F4F4;
+	white-space: pre-wrap;
+}
+
+#container-links-gameinfo{
+	clear: left;
+}
+
+.link-gameinfo{
+	float: left;
+	margin-left: 3px;
+	outline: 3px solid #888;
+	background-color: #444;
+	color: #F4F4F4;
+	padding: 8px 36px;
+}
+
+#container-gameinfo {
+	border: 3px solid #444;
+}
+
+#placeholder {
+	height: 562px;
+	background-color: #888;
+}
+
+#container-buttons{
+	clear: left;
+	background-color: #888;
+	color: #F4F4F4;
+	font-weight: bold;
+}
+.button-entry {
+	margin: 3px;
+	background-color: #444;
+	color: #F4F4F4;
+	padding: 8px 36px;
+}
+
+#container-tabs-gameinfo{
+	border: 3px solid #888;
+	clear:left;
+}
+
+.content-gameinfo {
+	display: none;
+}
+
+#container-gameplay{
+	height: 606px;
+	background-color: #888;
+}
+
+#container-inventory {
+	margin-top:3px;
+	padding: 3px;
+	display: grid;
+	outline: 3px solid #444;
+	grid-template-columns: repeat( 17, 1fr);
+	grid-auto-rows: 53px;
+	height: 300px;
+	overflow-y: auto;
+}
+.inventory-item {
+	outline: 3px solid #888;
+	background-color: #444;
+	text-align:center;
+	color: #F4F4F4;
+	height: 50px;
+	width: 50px;
+	white-space: pre-wrap;
+}
