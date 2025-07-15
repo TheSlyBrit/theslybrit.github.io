@@ -1,5 +1,6 @@
 const logContainer = document.getElementById('container-log');
 const inventoryContainer = document.getElementById('container-inventory');
+const locationsContainer = document.getElementById('container-locations')
 const buttonContainer = document.getElementById('container-buttons');
 
 let TestItem1 = { name: "Jumpsuit", quantity: 1, pickuptext: "The jumpsuit is mundane, but comfortable."};
@@ -20,6 +21,12 @@ Rows of pods stacked up to the roof span the length of the room, connected with 
 		{text: "You find a jumpsuit and a pistol", action: "?", item: [TestItem1, TestItem2] }
 ],
 };
+let locations = [
+	{ name: "Laboratory" },
+	{ name: "Manufacturing"},
+	{ name: "Storage" },
+	{ name: "Armoury"}
+];
 
 function onLoad() {
 	document.getElementById("tab-default").click();
@@ -29,6 +36,7 @@ function onLoad() {
 
 function gameLoop() {
 	inventory.forEach( updateInventoryWindow );
+	locations.forEach( updateLocationWindow );
 }
 
 function printIntro(){
@@ -67,8 +75,29 @@ function updateInventoryWindow( invObj ) {
 		if( invObj.pickuptext )
 			logMessage(invObj.pickuptext, true );
 	}
+}
 
+function updateLocationWindow( locObj ) {
+	let index;
+	let no_window = true;
+	let window = document.getElementsByClassName('location');
 
+	for( index = 0; index < window.length; index++ ){
+		if( window[ index ].innerHTML.includes( locObj.name )){
+			window[ index ].innerHTML = locObj.name;
+				no_window = false;
+		}
+	}
+
+	if( no_window )
+	{
+		const entry = document.createElement('div');
+		entry.className = 'location';
+		entry.textContent = locObj.name;
+		locationsContainer.appendChild(entry);
+		if( locObj.pickuptext )
+			logMessage( locObj.pickuptext, true );
+	}
 }
 
 function logMessage(messageObj, special) {

@@ -7,58 +7,27 @@ body{
 	grid-template-columns: 50% 50%;
 }
 
-#container-log{
-	height: 562px;
-	overflow-y: auto;
+#container-gameinfo {
+	height: 600px;
 	background-color: #888;
-}
-
-.log-entry{
-	padding: 3px;
-	background-color: #444;
-	margin-top: 1px;
-	margin-bottom: 1px;
-	color: #F4F4F4;
-	white-space: pre-wrap;
+	border: 3px solid #444;
+	overflow-y: auto;
 }
 
 #container-links-gameinfo{
+	background-color: #444;
+	height: 36px;
 	clear: left;
 }
 
 .link-gameinfo{
 	float: left;
-	margin-left: 3px;
-	outline: 3px solid #888;
-	background-color: #444;
-	color: #F4F4F4;
-	padding: 8px 36px;
-}
-
-#container-gameinfo {
-	border: 3px solid #444;
-}
-
-#placeholder {
-	height: 562px;
-	background-color: #888;
-}
-
-#container-buttons{
-	clear: left;
-	background-color: #888;
-	color: #F4F4F4;
-	font-weight: bold;
-}
-.button-entry {
-	margin: 3px;
-	background-color: #444;
+	background-color: #555;
 	color: #F4F4F4;
 	padding: 8px 36px;
 }
 
 #container-tabs-gameinfo{
-	border: 3px solid #888;
 	clear:left;
 }
 
@@ -66,27 +35,76 @@ body{
 	display: none;
 }
 
-#container-gameplay{
-	height: 606px;
+#container-log{
+	overflow-y: auto;
 	background-color: #888;
 }
 
-#container-inventory {
-	margin-top:3px;
+.log-entry{
 	padding: 3px;
-	display: grid;
-	outline: 3px solid #444;
-	grid-template-columns: repeat( 17, 1fr);
-	grid-auto-rows: 53px;
-	height: 300px;
+	background-color: #444;
+	margin: 2px;
+	color: #F4F4F4;
+	white-space: pre-wrap;
+}
+
+#container-gameplay{
+	height: 600px;
+	background-color: firebrick;
+	border: 3px solid #444;
 	overflow-y: auto;
 }
-.inventory-item {
+
+#container-buttons{
+	background-color: #444;
+	color: #F4F4F4;
+	font-weight: bold;
+	height: 36px;
+}
+.button-entry {
+	background-color: #555;
+	color: #F4F4F4;
+	padding: 8px 36px;
+}
+
+#container-locations {
+	border-bottom: solid 6px #444;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #888;
+	height: 264px;
+}
+
+.location {
+	margin: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	outline: 3px solid #888;
 	background-color: #444;
 	text-align:center;
 	color: #F4F4F4;
-	height: 50px;
-	width: 50px;
+	height: 125px;
+	width: 125px;
+	white-space: pre-wrap;
+}
+
+#container-inventory {
+	background-color: #888;
+	display: flex;
+	height: 294px;
+	overflow-y: auto;
+}
+.inventory-item {
+	margin: 3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #444;
+	text-align:center;
+	color: #F4F4F4;
+	height: 75px;
+	width: 75px;
 	white-space: pre-wrap;
 }
