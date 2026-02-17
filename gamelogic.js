@@ -2,46 +2,61 @@ const logContainer = document.getElementById('container-log');
 const inventoryContainer = document.getElementById('container-inventory');
 const locationsContainer = document.getElementById('container-locations')
 const buttonContainer = document.getElementById('container-buttons');
+const scrapItemClass = { name:"Scrap", quantity: 1, usable: false };
+const testItemClass = { name:"Test Item", quantity: 1, usable: true };
+const ship = 
+{
+	locations:
+	[
+		{ name:"Fabricator" }, { name:"Cockpit" }
+	],
+}
 
-let TestItem1 = { name: "Jumpsuit", quantity: 1, pickuptext: "The jumpsuit is mundane, but comfortable."};
-let TestItem2 = { name: "10mm Pistol", quantity: 1, pickuptext: "The pistol is cool to the touch, and suprisingly heavy."}
-let inventory = [];
-let intro = { 
-	stage: 0,
-	story: [ 
-		{text:"Darkness...", action:"?"},
-		{text:"Darkness..", action:"?"},
-		{text:"Darkness.", action:"?"},
-		{text:"Light?", action:"Wake up"},
-		{text: "The blurs of colour in your vision snap into focus as you begin to wake.",action:"Open the cryopod"},
-		{text:"Shivers of cold air flow out of the cryopod with a hiss as the door unseals.", action:"Look Around"},
-		{text:`You definitely just died, and you've definitely never been in this room before.
-
-Rows of pods stacked up to the roof span the length of the room, connected with pipes that trace the walls; presumably connected to the life support.`, action:"Search the Room" },
-		{text: "You find a jumpsuit and a pistol", action: "?", item: [TestItem1, TestItem2] }
-],
-};
-let locations = [
-	{ name: "Laboratory" },
-	{ name: "Manufacturing"},
-	{ name: "Storage" },
-	{ name: "Armoury"}
+let inventory = 
+[
+	{ name:"Test Item", quantity: 1, usable: true }
 ];
+
+let locale = ship;
+
+let intro = 
+{ 
+	stage: 0,
+	story: 
+	[ 
+		{ 
+			text: "You flick the switch to turn on the engine, producing satisfying click that cuts through the silence in the room and the tension in your body; a hard week of salvage work has come to an end.",
+			action: "Set destination",
+			item:[ scrapItemClass, testItemClass ]
+		},
+		{
+			text: "You punch in the co-ordinates of the nearest warp gate, checking over your manifest while you're on route. It's a pretty good haul, considering what little remained of the debris field.",
+			action: "Go home",
+			item:[scrapItemClass]
+		},
+		{
+			text: "The ship lists slightly as you enter the warp gate, a sinking feeling filling your gut as space begins to bend around you.",
+			action: "?",
+			item:[scrapItemClass, testItemClass ]
+		},
+	],
+}
 
 function onLoad() {
 	document.getElementById("tab-default").click();
-	addButton( printIntro, "?", "intro_button");
+	addButton( printIntro, "Boot up the engine", "intro_button");
 	setInterval( gameLoop, 200);
 }
 
 function gameLoop() {
 	inventory.forEach( updateInventoryWindow );
-	locations.forEach( updateLocationWindow );
+	locale.locations.forEach( updateLocationWindow );
 }
 
 function printIntro(){
 	let button = document.getElementById( "intro_button");
 	if( intro.stage >= intro.story.length ){
+		intro.stage = intro.story.length;
 		return;
 	}
 	
@@ -57,12 +72,16 @@ function printIntro(){
 function updateInventoryWindow( invObj ) {
 	let index;
 	let no_window = true;
-	let window = document.getElementsByClassName('inventory-item');
+	let window = document.querySelectorAll(".inventory-item, .inventory-item-usable");
 
 	for( index = 0; index < window.length; index++ ){
 		if( window[ index ].innerHTML.includes( invObj.name )){
 			window[ index ].innerHTML = invObj.name + '\n' + invObj.quantity;
-				no_window = false;
+			no_window = false;
+			if( invObj.quantity <= 0 ){
+				window[ index ].remove();
+				inventory.splice(inventory.indexOf(invObj), 1 );
+			}
 		}
 	}
 
@@ -70,10 +89,15 @@ function updateInventoryWindow( invObj ) {
 	{
 		const entry = document.createElement('div');
 		entry.className = 'inventory-item';
+		if( invObj.usable ){
+			entry.onclick = useItem;
+			entry.className += '-usable';
+		}
 		entry.textContent = invObj.name + '\n' + invObj.quantity;
 		inventoryContainer.appendChild(entry);
 		if( invObj.pickuptext )
 			logMessage(invObj.pickuptext, true );
+
 	}
 }
 
@@ -96,7 +120,7 @@ function updateLocationWindow( locObj ) {
 		entry.textContent = locObj.name;
 		locationsContainer.appendChild(entry);
 		if( locObj.pickuptext )
-			logMessage( locObj.pickuptext, true );
+			logMessage( locObj.pickuptext, { color: '#b19cd9'} );
 	}
 }
 
@@ -106,7 +130,7 @@ function logMessage(messageObj, special) {
 	entry.className = 'log-entry';
 	entry.textContent = messageObj;
 	if( special )
-		entry.style.backgroundColor = '#b19cd9';
+		entry.style.backgroundColor = special.color;
 	logContainer.appendChild(entry);
 	logContainer.scrollTop = logContainer.scrollHeight;
 
@@ -120,6 +144,24 @@ function addItem( itemObj ) {
 	}
 	else {
 		inventory.push( itemObj );
+	}
+}
+
+function useItem( evt )
+{
+	let item = inventory.find(({name})=> evt.currentTarget.textContent.includes( name ) )
+
+	if( item )
+		removeItem( item );
+}
+
+function removeItem( itemObj ) {
+	let found_object = inventory.find(({name}) => name === itemObj.name);
+
+	if( found_object )
+		found_object.quantity--;
+	else{
+		logMessage("How are you using an item you don't have???", true );
 	}
 }
 
@@ -163,3 +205,4 @@ function openLogTab(evt, tabName) {
 	document.getElementById( tabName ).style.display = "block";
 	evt.currentTarget.className += " active";
 }
+
