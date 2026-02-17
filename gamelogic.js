@@ -27,17 +27,15 @@ let intro =
 		{ 
 			text: "You flick the switch to turn on the engine, producing satisfying click that cuts through the silence in the room and the tension in your body; a hard week of salvage work has come to an end.",
 			action: "Set destination",
-			item:[ scrapItemClass, testItemClass ]
 		},
 		{
 			text: "You punch in the co-ordinates of the nearest warp gate, checking over your manifest while you're on route. It's a pretty good haul, considering what little remained of the debris field.",
 			action: "Go home",
-			item:[scrapItemClass]
+			item:[ scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, scrapItemClass, ]
 		},
 		{
 			text: "The ship lists slightly as you enter the warp gate, a sinking feeling filling your gut as space begins to bend around you.",
 			action: "?",
-			item:[scrapItemClass, testItemClass ]
 		},
 	],
 }
@@ -205,4 +203,5 @@ function openLogTab(evt, tabName) {
 	document.getElementById( tabName ).style.display = "block";
 	evt.currentTarget.className += " active";
 }
+
 
